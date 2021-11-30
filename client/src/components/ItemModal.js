@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Button,
   Modal,
@@ -10,8 +10,8 @@ import {
   FormGroup,
   Label,
   Input,
-} from 'reactstrap';
-import { addItems } from '../Store/Actions/itemActions';
+} from "reactstrap";
+import { addItems } from "../Store/Actions/itemActions";
 
 export const ItemModal = (props) => {
   const { buttonLabel, className } = props;
@@ -20,7 +20,7 @@ export const ItemModal = (props) => {
 
   const [modal, setModal] = useState(false);
   const [unmountOnClose, setUnmountOnClose] = useState(true);
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
 
   const toggle = () => {
     setModal(!modal);
@@ -31,7 +31,7 @@ export const ItemModal = (props) => {
     if (input) {
       dispatch(addItems({ name: input }));
     }
-    setInput('');
+    setInput("");
   };
 
   const inputChange = (input) => {
@@ -43,7 +43,7 @@ export const ItemModal = (props) => {
       <Form inline onSubmit={(e) => e.preventDefault()}>
         {isAuthenticated ? (
           <Button className="mb-3" color="danger" onClick={toggle}>
-            Add new Person
+            Add a new Team
           </Button>
         ) : (
           <h4>Please login to manage items</h4>
@@ -58,7 +58,7 @@ export const ItemModal = (props) => {
         className={className}
         unmountOnClose={unmountOnClose}
       >
-        <ModalHeader toggle={toggle}>Add a new person</ModalHeader>
+        <ModalHeader toggle={toggle}>Add a new team</ModalHeader>
         <ModalBody>
           <Input
             type="text"
@@ -70,7 +70,7 @@ export const ItemModal = (props) => {
         <ModalFooter>
           <Button color="primary" onClick={add}>
             ADD
-          </Button>{' '}
+          </Button>{" "}
           <Button color="secondary" onClick={toggle}>
             Cancel
           </Button>

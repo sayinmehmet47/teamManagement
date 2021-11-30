@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import {
   Collapse,
   Navbar,
@@ -8,10 +8,10 @@ import {
   Nav,
   NavItem,
   NavLink,
-} from 'reactstrap';
-import { LoginModal } from './LoginModal';
-import { Logout } from './Logout';
-import { RegisterModal } from './RegisterModal';
+} from "reactstrap";
+import { LoginModal } from "./LoginModal";
+import { Logout } from "./Logout";
+import { RegisterModal } from "./RegisterModal";
 
 export const AppNavbar = () => {
   const [collapsed, setCollapsed] = useState(true);
@@ -25,7 +25,7 @@ export const AppNavbar = () => {
     <div>
       <Navbar color="dark" dark expand="md" className="mb-5">
         <NavbarBrand href="/" className="mr-auto">
-          ShoppingList
+          TeamManagement
         </NavbarBrand>
         <NavbarToggler onClick={toggleNavbar} className="mr-2" />
         <Collapse
@@ -37,8 +37,8 @@ export const AppNavbar = () => {
             {isAuthenticated ? (
               <>
                 <NavItem>
-                  <NavLink href="#">{`welcome ${user}`}</NavLink>{' '}
-                </NavItem>{' '}
+                  <NavLink href="#">{`welcome ${user}`}</NavLink>{" "}
+                </NavItem>{" "}
                 <NavItem>
                   <Logout />
                 </NavItem>
