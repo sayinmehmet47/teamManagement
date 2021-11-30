@@ -1,0 +1,18 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "pwa-node",
+            "request": "launch",
+            "name": "Debug",
+            "runtimeExecutable": "<your executable path>",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "timeout": 30000,
+            "skipFiles": [
+                "<node_internals>/internal/async_hooks.js",
+                "<node_internals>/internal/inspector_async_hook.js"
+            ]
+        }
+    ]
+}
