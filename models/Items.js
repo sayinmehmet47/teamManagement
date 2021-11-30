@@ -9,7 +9,7 @@ const schema = new mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
-  teams: [{ name: String, players: [{ name: String, age: Number }] }],
+  players: [{ name: String, age: Number }],
 });
 
 module.exports = Item = mongoose.model("item", schema);
