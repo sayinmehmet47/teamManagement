@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { ListGroup, ListGroupItem, Button } from 'reactstrap';
-import { v1 as uuid } from 'uuid';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { useDispatch, useSelector } from 'react-redux';
-import { addItem, deleteItem, getItems } from '../Store/Actions/itemActions';
-import { ItemModal } from './ItemModal';
-import { css } from '@emotion/react';
-import BeatLoader from 'react-spinners/BeatLoader';
+import React, { useEffect, useState } from "react";
+import { ListGroup, ListGroupItem, Button } from "reactstrap";
+import { v1 as uuid } from "uuid";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { useDispatch, useSelector } from "react-redux";
+import { addItem, deleteItem, getItems } from "../Store/Actions/itemActions";
+import { ItemModal } from "./ItemModal";
+import { css } from "@emotion/react";
+import BeatLoader from "react-spinners/BeatLoader";
 
 const override = css`
   display: flex;
   justify-content: center;
 `;
 
-export const ShoppingList = () => {
+export const TeamList = () => {
   const itemsFromRedux = useSelector((state) => state.items.item);
   const isLoading = useSelector((state) => state.items.loading);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -47,12 +47,6 @@ export const ShoppingList = () => {
                       </Button>
                     ) : null}
 
-                    {/* <Button
-                      onClick={() => deleteItems(item._id)}
-                      className="me-3"
-                    >
-                      ❌
-                    </Button> */}
                     {item.name}
                   </ListGroupItem>
                 </CSSTransition>

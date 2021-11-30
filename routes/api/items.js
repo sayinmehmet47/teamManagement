@@ -1,15 +1,15 @@
-const express = require('express');
-const auth = require('../../middleware/auth');
+const express = require("express");
+const auth = require("../../middleware/auth");
 const router = express.Router();
-const Item = require('../../models/Items');
+const Item = require("../../models/Items");
 
-router.get('/', (req, res) => {
+router.get("/", (req, res) => {
   Item.find()
     .sort({ date: -1 })
     .then((items) => res.json(items));
 });
 
-router.get('/:id', (req, res) => {
+router.get("/:id", (req, res) => {
   const id = req.params.id;
   console.log(id);
   Item.findById(id, (err, data) => {
@@ -18,7 +18,7 @@ router.get('/:id', (req, res) => {
   });
 });
 
-router.post('/', auth, (req, res) => {
+router.post("/createTeam", auth, (req, res) => {
   const newItem = new Item({
     name: req.body.name,
   });
@@ -28,7 +28,7 @@ router.post('/', auth, (req, res) => {
   });
 });
 
-router.delete('/:id', auth, (req, res) => {
+router.delete("/:id", auth, (req, res) => {
   const id = req.params.id;
 
   Item.findByIdAndDelete(id, (err, data) => {
