@@ -17,7 +17,7 @@ export const TeamList = () => {
   const itemsFromRedux = useSelector((state) => state.items.item);
   const isLoading = useSelector((state) => state.items.loading);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-
+  const [selectedItem, setSelectedItem] = useState(itemsFromRedux[0]);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -33,22 +33,36 @@ export const TeamList = () => {
       <ItemModal />
       <div className="row ">
         {!isLoading ? (
-          <ListGroup className="col-4">
+          <ListGroup className="col-6">
             <TransitionGroup>
               {itemsFromRedux.map((item, index) => {
                 return (
-                  <CSSTransition key={index} timeout={500} classNames="fade">
-                    <ListGroupItem>
-                      {isAuthenticated ? (
-                        <Button
-                          onClick={() => deleteItems(item._id)}
-                          className="me-3"
-                        >
-                          ❌
-                        </Button>
-                      ) : null}
-
-                      {item.name}
+                  <CSSTransition
+                    key={index}
+                    timeout={500}
+                    classNames="fade"
+                    onClick={() => setSelectedItem(item)}
+                  >
+                    <ListGroupItem className="d-flex justify-content-between">
+                      <div>
+                        <div> {item.name}</div>
+                        <hr />
+                        <div className="d-flex justify-content-center align-items-center ">
+                          {isAuthenticated ? (
+                            <Button className="me-3 d-flex flex-end">
+                              Add Players ➕
+                            </Button>
+                          ) : null}
+                          {isAuthenticated ? (
+                            <Button
+                              onClick={() => deleteItems(item._id)}
+                              className="me-3 d-flex flex-end"
+                            >
+                              Delete Team ❌
+                            </Button>
+                          ) : null}
+                        </div>
+                      </div>
                     </ListGroupItem>
                   </CSSTransition>
                 );
@@ -60,8 +74,8 @@ export const TeamList = () => {
             <BeatLoader css={override} size={20} />
           </div>
         )}
-        <div className="col-6">
-          <Table />
+        <div className="col-4">
+          <Table item={selectedItem} />
         </div>
       </div>
     </div>

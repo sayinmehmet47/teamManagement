@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { useTable, useSortBy, usePagination } from "react-table";
 
 const container = [
@@ -6,7 +6,7 @@ const container = [
   { name: "veli", age: "32" },
 ];
 
-export const Table = () => {
+export const Table = ({ item }) => {
   const data = useMemo(() => [...container], []);
 
   const columns = useMemo(
@@ -36,17 +36,6 @@ export const Table = () => {
   } = useTable({ columns, data }, useSortBy, usePagination);
   return (
     <div className="d-flex flex-column m-2">
-      <thead
-        className="border text-center"
-        style={{
-          background: "#838485",
-          color: "white",
-          paddingLeft: "12px",
-        }}
-      >
-        X TEAM
-      </thead>
-
       <table {...getTableProps()} style={{ borderRadius: "15px" }}>
         <thead>
           {headerGroups.map((headerGroup) => (
