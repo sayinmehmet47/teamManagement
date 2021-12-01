@@ -45,7 +45,10 @@ export const TeamList = () => {
                     classNames="fade"
                     onClick={() => setSelectedPlayers(item.players)}
                   >
-                    <ListGroupItem className="d-flex justify-content-between shadow mb-2">
+                    <ListGroupItem
+                      className="d-flex justify-content-between shadow mb-2 rounded"
+                      role="button"
+                    >
                       <div>
                         <div> {item.name}</div>
                         <hr />

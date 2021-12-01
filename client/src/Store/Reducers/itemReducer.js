@@ -1,10 +1,11 @@
-import { v1 as uuid } from 'uuid';
+import { v1 as uuid } from "uuid";
 import {
   ADD_ITEM,
+  ADD_PLAYER,
   DELETE_ITEM,
   GET_ITEMS,
   ITEMS_LOADING,
-} from '../Actions/actions';
+} from "../Actions/actions";
 
 const initialState = {
   item: [],
@@ -30,6 +31,19 @@ export const itemReducer = (state = initialState, action) => {
         ...state,
         loading: true,
         // lastUpdated: Date.now(),
+      };
+    case ADD_PLAYER:
+      console.log(action.payload);
+      return {
+        ...state,
+        item: state.item.map((e) =>
+          e._id === action.payload.id
+            ? {
+                ...e,
+                players: [...e.players, action.payload.player],
+              }
+            : e
+        ),
       };
 
     default:

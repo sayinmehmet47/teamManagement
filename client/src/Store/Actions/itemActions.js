@@ -58,7 +58,7 @@ export const addPlayer = (id, player) => (dispatch, getState) => {
     .then((res) =>
       dispatch({
         type: ADD_PLAYER,
-        payload: id,
+        payload: { id, player },
       })
     )
     .catch((err) =>

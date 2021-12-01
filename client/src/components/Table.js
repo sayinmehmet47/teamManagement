@@ -1,11 +1,6 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useCallback } from "react";
 import { useTable, useSortBy, usePagination } from "react-table";
 import { useDispatch, useSelector } from "react-redux";
-
-const container = [
-  { name: "Ali", age: "22" },
-  { name: "veli", age: "32" },
-];
 
 export const Table = ({ selected }) => {
   const data = useMemo(() => [...selected], [selected]);
