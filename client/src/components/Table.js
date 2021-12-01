@@ -1,25 +1,27 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useTable, useSortBy, usePagination } from "react-table";
+import { useDispatch, useSelector } from "react-redux";
 
 const container = [
   { name: "Ali", age: "22" },
   { name: "veli", age: "32" },
 ];
 
-export const Table = ({ item }) => {
-  const data = useMemo(() => [...container], []);
+export const Table = ({ selected }) => {
+  const data = useMemo(() => [...selected], [selected]);
 
   const columns = useMemo(
     () => [
       {
-        Header: "Players",
-        accessor: "name", // accessor is the "key" in the data
+        Header: "Name",
+        accessor: "name",
       },
       {
-        Header: "Ages",
-        accessor: "age", // accessor is the "key" in the data
+        Header: "Age",
+        accessor: "age",
       },
     ],
+
     []
   );
 
@@ -35,8 +37,12 @@ export const Table = ({ item }) => {
     canNextPage,
   } = useTable({ columns, data }, useSortBy, usePagination);
   return (
-    <div className="d-flex flex-column m-2">
-      <table {...getTableProps()} style={{ borderRadius: "15px" }}>
+    <div className="d-flex flex-column m-2 container ">
+      <table
+        {...getTableProps()}
+        style={{ borderRadius: "15px" }}
+        className="table table-hover shadow"
+      >
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>

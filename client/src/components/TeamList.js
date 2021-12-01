@@ -4,6 +4,7 @@ import { v1 as uuid } from "uuid";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { useDispatch, useSelector } from "react-redux";
 import { addItem, deleteItem, getItems } from "../Store/Actions/itemActions";
+import { AddPlayer } from "./AddPlayer";
 import { ItemModal } from "./ItemModal";
 import { css } from "@emotion/react";
 import BeatLoader from "react-spinners/BeatLoader";
@@ -17,7 +18,8 @@ export const TeamList = () => {
   const itemsFromRedux = useSelector((state) => state.items.item);
   const isLoading = useSelector((state) => state.items.loading);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const [selectedItem, setSelectedItem] = useState(itemsFromRedux[0]);
+  const [selectedPlayers, setSelectedPlayers] = useState("");
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -29,7 +31,7 @@ export const TeamList = () => {
   };
 
   return (
-    <div className="mx-5">
+    <div className="mx-5 mb-5">
       <ItemModal />
       <div className="row ">
         {!isLoading ? (
@@ -41,22 +43,23 @@ export const TeamList = () => {
                     key={index}
                     timeout={500}
                     classNames="fade"
-                    onClick={() => setSelectedItem(item)}
+                    onClick={() => setSelectedPlayers(item.players)}
                   >
-                    <ListGroupItem className="d-flex justify-content-between">
+                    <ListGroupItem className="d-flex justify-content-between shadow mb-2">
                       <div>
                         <div> {item.name}</div>
                         <hr />
                         <div className="d-flex justify-content-center align-items-center ">
                           {isAuthenticated ? (
-                            <Button className="me-3 d-flex flex-end">
-                              Add Players ➕
-                            </Button>
+                            // <Button className="me-3 d-flex flex-end">
+                            //   Add Players ➕
+                            // </Button>
+                            <AddPlayer id={item._id} />
                           ) : null}
                           {isAuthenticated ? (
                             <Button
                               onClick={() => deleteItems(item._id)}
-                              className="me-3 d-flex flex-end"
+                              className="mx-3 d-flex flex-end"
                             >
                               Delete Team ❌
                             </Button>
@@ -74,9 +77,7 @@ export const TeamList = () => {
             <BeatLoader css={override} size={20} />
           </div>
         )}
-        <div className="col-4">
-          <Table item={selectedItem} />
-        </div>
+        <div className="col-4">{<Table selected={selectedPlayers} />}</div>
       </div>
     </div>
   );

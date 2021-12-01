@@ -42,7 +42,7 @@ export const ItemModal = (props) => {
     <div>
       <Form inline onSubmit={(e) => e.preventDefault()}>
         {isAuthenticated ? (
-          <Button className="mb-3" color="danger" onClick={toggle}>
+          <Button className="mb-3" color="dark" onClick={toggle}>
             Add a new Team
           </Button>
         ) : (

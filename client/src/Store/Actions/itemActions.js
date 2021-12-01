@@ -1,6 +1,7 @@
 import axios from "axios";
 import {
   ADD_ITEM,
+  ADD_PLAYER,
   DELETE_ITEM,
   GET_ERRORS,
   GET_ITEMS,
@@ -41,6 +42,22 @@ export const deleteItem = (id) => (dispatch, getState) => {
     .then((res) =>
       dispatch({
         type: DELETE_ITEM,
+        payload: id,
+      })
+    )
+    .catch((err) =>
+      dispatch(
+        returnErrors(err.response.data, err.response.status, "GET_ERRORS")
+      )
+    );
+};
+
+export const addPlayer = (id, player) => (dispatch, getState) => {
+  axios
+    .post(`/api/items/addPlayer/${id}`, player, tokenConfig(getState))
+    .then((res) =>
+      dispatch({
+        type: ADD_PLAYER,
         payload: id,
       })
     )
