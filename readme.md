@@ -1,3 +1,3 @@
+This project created for managing teams
 
-
-https://deneme189.herokuapp.com/
+Used technologies ReactJS,Redux, Bootstrap, NodeJS, MongoDB

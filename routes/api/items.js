@@ -40,4 +40,19 @@ router.delete("/:id", auth, (req, res) => {
   });
 });
 
+router.post("/addPlayer/:id", auth, (req, res) => {
+  const id = req.params.id;
+  Item.findByIdAndUpdate(
+    id,
+    { $push: { players: req.body } },
+    function (err, docs) {
+      if (err) {
+        res.json(err);
+      } else {
+        res.json(docs);
+      }
+    }
+  );
+});
+
 module.exports = router;
