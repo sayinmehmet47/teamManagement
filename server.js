@@ -10,12 +10,7 @@ const auth = require("./routes/api/auth");
 app.use(express.json());
 
 require("dotenv").config();
-mongoose
-  .connect(
-    "mongodb+srv://sayinmehmet47:Mardin.1992,@cluster0.ywv3z.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
-  )
-  .then(console.log("connected"));
-//mongoose.connect(process.env.MONGO_URI).then(console.log('connected'));
+mongoose.connect(process.env.MONGO_DB).then(console.log("connected"));
 const corsOptions = {
   origin: "*",
   credentials: true, //access-control-allow-credentials:true
@@ -28,7 +23,10 @@ app.use("/api/items", items);
 app.use("/api/users", users);
 app.use("/api/auth", auth);
 
-if (process.env.NODE_ENV === "production") {
+if (
+  process.env.NODE_ENV === "production" ||
+  process.env.NODE_ENV === "staging"
+) {
   // Set static folder
   app.use(express.static("client/build"));
 
