@@ -12,7 +12,7 @@ app.use(express.json());
 require("dotenv").config();
 mongoose.connect(process.env.MONGO_DB).then(console.log("connected"));
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: new URL("http://localhost:3000"),
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
 };
