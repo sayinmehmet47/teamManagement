@@ -36,9 +36,9 @@ export const TeamList = () => {
   return (
     <div className="mx-5 mb-5">
       <ItemModal />
-      <div className="row ">
+      <div className="row">
         {!isLoading ? (
-          <ListGroup className="col-6">
+          <ListGroup className="col-md-7">
             <TransitionGroup>
               {itemsFromRedux.map((item, index) => {
                 return (
@@ -83,7 +83,7 @@ export const TeamList = () => {
             <BeatLoader css={override} size={20} />
           </div>
         )}
-        <div className="col-4">{<Table selected={selectedItem} />}</div>
+        <div className="col-md-4">{<Table selected={selectedItem} />}</div>
       </div>
     </div>
   );
