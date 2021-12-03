@@ -23,7 +23,7 @@ export const getItems = () => (dispatch) => {
 
 export const addItems = (input) => (dispatch, getState) => {
   axios
-    .post("/api/items/createTeam", input)
+    .post("/api/items/createTeam", input, tokenConfig(getState))
     .then((res) =>
       dispatch({
         type: ADD_ITEM,
