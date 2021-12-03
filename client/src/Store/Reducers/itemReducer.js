@@ -3,6 +3,7 @@ import {
   ADD_ITEM,
   ADD_PLAYER,
   DELETE_ITEM,
+  DELETE_PLAYER,
   GET_ITEMS,
   ITEMS_LOADING,
 } from "../Actions/actions";
@@ -33,7 +34,6 @@ export const itemReducer = (state = initialState, action) => {
         // lastUpdated: Date.now(),
       };
     case ADD_PLAYER:
-      console.log(action.payload);
       return {
         ...state,
         item: state.item.map((e) =>
@@ -44,6 +44,28 @@ export const itemReducer = (state = initialState, action) => {
               }
             : e
         ),
+      };
+
+    case DELETE_PLAYER:
+      console.log(action.payload.teamName);
+      console.log(action.payload.playerName);
+      console.log("istek geliyor mu");
+      const newItem = state.item.map((team) =>
+        team.name === action.payload.teamName
+          ? {
+              ...team,
+              players: [
+                team.players.filter(
+                  (player) => player.name !== action.payload.playerName
+                ),
+              ][0],
+            }
+          : team
+      );
+      console.log(newItem);
+      return {
+        ...state,
+        item: newItem,
       };
 
     default:

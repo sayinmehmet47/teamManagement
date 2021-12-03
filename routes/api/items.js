@@ -55,4 +55,27 @@ router.post("/addPlayer/:id", auth, (req, res) => {
   );
 });
 
+router.post("/deletePlayer", auth, (req, res) => {
+  const playerName = req.body.playerName; //'ahmet '
+  const teamName = req.body.teamName; //'Team A'
+  res.json("dfas");
+  Item.updateOne(
+    { name: teamName },
+    {
+      $pull: {
+        players: {
+          name: playerName,
+        },
+      },
+    },
+    function (err, docs) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("Removed User : ", docs);
+      }
+    }
+  );
+});
+
 module.exports = router;

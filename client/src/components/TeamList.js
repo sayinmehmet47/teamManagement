@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { ListGroup, ListGroupItem, Button } from "reactstrap";
-import { v1 as uuid } from "uuid";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { useDispatch, useSelector } from "react-redux";
 import { addItem, deleteItem, getItems } from "../Store/Actions/itemActions";
@@ -18,7 +17,7 @@ export const TeamList = () => {
   const itemsFromRedux = useSelector((state) => state.items.item);
   const isLoading = useSelector((state) => state.items.loading);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const [selectedPlayers, setSelectedPlayers] = useState("");
+  const [selectedItem, setSelectedItem] = useState("");
 
   const dispatch = useDispatch();
 
@@ -28,6 +27,10 @@ export const TeamList = () => {
 
   const deleteItems = (id) => {
     dispatch(deleteItem(id));
+  };
+
+  const handleSelectedItem = (item) => {
+    setSelectedItem(item);
   };
 
   return (
@@ -43,14 +46,14 @@ export const TeamList = () => {
                     key={index}
                     timeout={500}
                     classNames="fade"
-                    onClick={() => setSelectedPlayers(item.players)}
+                    onClick={() => handleSelectedItem(item)}
                   >
                     <ListGroupItem
                       className="d-flex justify-content-between shadow mb-2 rounded"
                       role="button"
                     >
                       <div>
-                        <div> {item.name}</div>
+                        <div className="text-secondary fs-4"> {item.name}</div>
                         <hr />
                         <div className="d-flex justify-content-center align-items-center ">
                           {isAuthenticated ? (
@@ -80,7 +83,7 @@ export const TeamList = () => {
             <BeatLoader css={override} size={20} />
           </div>
         )}
-        <div className="col-4">{<Table selected={selectedPlayers} />}</div>
+        <div className="col-4">{<Table selected={selectedItem} />}</div>
       </div>
     </div>
   );

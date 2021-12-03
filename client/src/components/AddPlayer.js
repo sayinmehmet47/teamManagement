@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { v4 as uuidv4 } from "uuid";
 import {
   Button,
   Modal,
   ModalHeader,
   ModalBody,
-  ModalFooter,
   Form,
   FormGroup,
   Label,
   Input,
 } from "reactstrap";
-import { addItems, addPlayer } from "../Store/Actions/itemActions";
+import { addPlayer } from "../Store/Actions/itemActions";
 
 export const AddPlayer = (props) => {
-  const { buttonLabel, className, id } = props;
+  const { className, id } = props;
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const [name, setName] = useState("");

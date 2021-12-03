@@ -3,6 +3,7 @@ import {
   ADD_ITEM,
   ADD_PLAYER,
   DELETE_ITEM,
+  DELETE_PLAYER,
   GET_ERRORS,
   GET_ITEMS,
   ITEMS_LOADING,
@@ -59,6 +60,24 @@ export const addPlayer = (id, player) => (dispatch, getState) => {
       dispatch({
         type: ADD_PLAYER,
         payload: { id, player },
+      })
+    )
+    .catch((err) =>
+      dispatch(
+        returnErrors(err.response.data, err.response.status, "GET_ERRORS")
+      )
+    );
+};
+
+export const deletePlayer = (willDelete) => (dispatch, getState) => {
+  console.log(willDelete);
+
+  axios
+    .post(`/api/items/deletePlayer/`, willDelete, tokenConfig(getState))
+    .then((res) =>
+      dispatch({
+        type: DELETE_PLAYER,
+        payload: willDelete,
       })
     )
     .catch((err) =>

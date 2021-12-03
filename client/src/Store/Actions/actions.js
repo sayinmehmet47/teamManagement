@@ -16,3 +16,4 @@ export const GET_ERRORS = "REGISTER_FAIL";
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
 export const REGISTRATION_FAIL = "REGISTRATION_FAIL";
 export const ADD_PLAYER = "ADD_PLAYER";
+export const DELETE_PLAYER = "DELETE_PLAYER";

@@ -1,23 +1,64 @@
-import React, { useEffect, useMemo, useCallback } from "react";
+import React, { useMemo } from "react";
 import { useTable, useSortBy, usePagination } from "react-table";
 import { useDispatch, useSelector } from "react-redux";
+import { deletePlayer } from "../Store/Actions/itemActions";
+
+let container = [{ name: "", age: "" }];
 
 export const Table = ({ selected }) => {
-  const data = useMemo(() => [...selected], [selected]);
+  const id = useMemo(() => selected._id, [selected]);
+  const dispatch = useDispatch();
+
+  const itemsFromRedux = useSelector((state) =>
+    state.items.item.filter((e) => e._id === id)
+  )[0];
+  let players = itemsFromRedux ? itemsFromRedux.players : "";
+  let teamName = itemsFromRedux ? itemsFromRedux.name : "";
+
+  const handleDelete = (cell) => {
+    const playerName = cell.row.original.name;
+    const teamName = cell.column.parent.Header;
+    const willDelete = { playerName, teamName };
+    // console.log(willDelete);
+    dispatch(deletePlayer(willDelete));
+  };
 
   const columns = useMemo(
     () => [
       {
-        Header: "Name",
-        accessor: "name",
-      },
-      {
-        Header: "Age",
-        accessor: "age",
+        Header: teamName ? teamName : "TEAM NAME",
+
+        columns: [
+          {
+            Header: "Name",
+            accessor: "name",
+          },
+          {
+            Header: "Age",
+            accessor: "age",
+          },
+          {
+            Header: "Delete",
+
+            accessor: "_id",
+            id: "_id",
+            Cell: (row) =>
+              players ? (
+                <button
+                  className="btn btn-secondary"
+                  onClick={() => handleDelete(row.cell)}
+                >
+                  ❌
+                </button>
+              ) : (
+                ""
+              ),
+          },
+        ],
       },
     ],
 
-    []
+    [teamName]
   );
 
   const {
@@ -30,7 +71,11 @@ export const Table = ({ selected }) => {
     page,
     canPreviousPage,
     canNextPage,
-  } = useTable({ columns, data }, useSortBy, usePagination);
+  } = useTable(
+    { columns, data: players ? players : container },
+    useSortBy,
+    usePagination
+  );
   return (
     <div className="d-flex flex-column m-2 container ">
       <table
@@ -39,6 +84,7 @@ export const Table = ({ selected }) => {
         className="table table-hover shadow"
       >
         <thead>
+          {/* <tr className="text-center">{teamName}</tr> */}
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (

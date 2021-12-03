@@ -7,8 +7,6 @@ import {
   ModalBody,
   ModalFooter,
   Form,
-  FormGroup,
-  Label,
   Input,
 } from "reactstrap";
 import { addItems } from "../Store/Actions/itemActions";
@@ -43,7 +41,7 @@ export const ItemModal = (props) => {
       <Form inline onSubmit={(e) => e.preventDefault()}>
         {isAuthenticated ? (
           <Button className="mb-3" color="dark" onClick={toggle}>
-            Add a new Team
+            Add a new Team 📜
           </Button>
         ) : (
           <h4>Please login to manage items</h4>
