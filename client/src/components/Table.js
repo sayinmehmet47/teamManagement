@@ -8,6 +8,7 @@ let container = [{ name: "", age: "" }];
 
 export const Table = ({ selected }) => {
   const id = useMemo(() => selected._id, [selected]);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const dispatch = useDispatch();
 
   const itemsFromRedux = useSelector((state) =>
@@ -84,7 +85,11 @@ export const Table = ({ selected }) => {
   );
   return (
     <div className="d-flex flex-column m-2 container ">
-      {deleted ? <Alert className="alert">Player Deleted</Alert> : null}
+      {deleted && isAuthenticated ? (
+        <Alert className="alert">Player Deleted</Alert>
+      ) : deleted && !isAuthenticated ? (
+        <Alert className="alert">Please Login to Update</Alert>
+      ) : null}
 
       <table
         {...getTableProps()}
