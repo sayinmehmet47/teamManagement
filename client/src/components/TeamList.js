@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ListGroup, ListGroupItem, Button } from "reactstrap";
+import { ListGroup, ListGroupItem, Button, Alert } from "reactstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { useDispatch, useSelector } from "react-redux";
 import { addItem, deleteItem, getItems } from "../Store/Actions/itemActions";
@@ -18,7 +18,7 @@ export const TeamList = () => {
   const isLoading = useSelector((state) => state.items.loading);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const [selectedItem, setSelectedItem] = useState("");
-
+  const [deleted, setDeleted] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -27,6 +27,10 @@ export const TeamList = () => {
 
   const deleteItems = (id) => {
     dispatch(deleteItem(id));
+    setDeleted(true);
+    setTimeout(() => {
+      setDeleted(false);
+    }, 2000);
   };
 
   const handleSelectedItem = (item) => {
@@ -35,6 +39,7 @@ export const TeamList = () => {
 
   return (
     <div className="mx-5 mb-5">
+      {deleted ? <Alert className="alert">Team Deleted</Alert> : null}
       <ItemModal />
       <div className="row">
         {!isLoading ? (

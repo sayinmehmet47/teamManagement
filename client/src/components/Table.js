@@ -1,7 +1,8 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { useTable, useSortBy, usePagination } from "react-table";
 import { useDispatch, useSelector } from "react-redux";
 import { deletePlayer } from "../Store/Actions/itemActions";
+import { Alert } from "reactstrap";
 
 let container = [{ name: "", age: "" }];
 
@@ -14,6 +15,7 @@ export const Table = ({ selected }) => {
   )[0];
   let players = itemsFromRedux ? itemsFromRedux.players : "";
   let teamName = itemsFromRedux ? itemsFromRedux.name : "";
+  const [deleted, setDeleted] = useState(false);
 
   const handleDelete = (cell) => {
     const playerName = cell.row.original.name;
@@ -21,6 +23,10 @@ export const Table = ({ selected }) => {
     const willDelete = { playerName, teamName };
     // console.log(willDelete);
     dispatch(deletePlayer(willDelete));
+    setDeleted(true);
+    setTimeout(() => {
+      setDeleted(false);
+    }, 2000);
   };
 
   const columns = useMemo(
@@ -78,6 +84,8 @@ export const Table = ({ selected }) => {
   );
   return (
     <div className="d-flex flex-column m-2 container ">
+      {deleted ? <Alert className="alert">Player Deleted</Alert> : null}
+
       <table
         {...getTableProps()}
         style={{ borderRadius: "15px" }}
