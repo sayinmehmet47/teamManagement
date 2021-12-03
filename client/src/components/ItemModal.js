@@ -27,7 +27,7 @@ export const ItemModal = (props) => {
   const add = () => {
     setModal(!modal);
     if (input) {
-      dispatch(addItems({ name: input }));
+      dispatch(addItems({ name: input, date: Date.now() }));
     }
     setInput("");
   };
