@@ -12,7 +12,7 @@ app.use(express.json());
 require("dotenv").config();
 mongoose.connect(process.env.MONGO_DB).then(console.log("connected"));
 
-app.use(cors({ origin: new URL("http://localhost:5000"), credentials: true })); // Add this 'new' keyword to URL
+app.use(cors({ credentials: true })); // Add this 'new' keyword to URL
 
 app.use("/api/items", items);
 app.use("/api/users", users);
