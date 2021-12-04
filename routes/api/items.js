@@ -18,7 +18,7 @@ router.get("/:id", (req, res) => {
   });
 });
 
-router.post("/createTeam", (req, res) => {
+router.post("/createTeam", auth, (req, res) => {
   const newItem = new Item({
     name: req.body.name,
   });
