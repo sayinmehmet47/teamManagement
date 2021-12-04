@@ -22,10 +22,11 @@ router.post("/createTeam", (req, res) => {
   const newItem = new Item({
     name: req.body.name,
   });
-  newItem.save((err, data) => {
-    if (err) console.log(err);
-    res.json(data);
-  });
+  // newItem.save((err, data) => {
+  //   if (err) console.log(err);
+  //   res.json(data);
+  // });
+  res.json("yeni ekleme");
 });
 
 router.delete("/:id", auth, (req, res) => {
