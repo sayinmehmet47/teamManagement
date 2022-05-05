@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState, useEffect, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Button,
   Modal,
@@ -11,9 +11,9 @@ import {
   Input,
   NavLink,
   Alert,
-} from "reactstrap";
-import { login } from "../Store/Actions/AuthActions";
-import { clearErrors } from "../Store/Actions/ErrActions";
+} from 'reactstrap';
+import { login } from '../Store/Actions/AuthActions';
+import { clearErrors } from '../Store/Actions/ErrActions';
 
 export const LoginModal = (props) => {
   const { buttonLabel, className } = props;
@@ -21,9 +21,9 @@ export const LoginModal = (props) => {
 
   const [modal, setModal] = useState(false);
   const [unmountOnClose, setUnmountOnClose] = useState(true);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const err = useSelector((state) =>
     state.err.msj.msg ? state.err.msj.msg : state.err.msj.msg
   );
@@ -59,7 +59,7 @@ export const LoginModal = (props) => {
     <div>
       <NavLink onClick={toggle} href="#">
         Login
-      </NavLink>{" "}
+      </NavLink>{' '}
       <Modal
         isOpen={modal}
         toggle={toggle}
@@ -90,7 +90,7 @@ export const LoginModal = (props) => {
                 className="mb-3"
                 onChange={handleChangePassword}
               />
-              <Button color="dark" style={{ marginTop: "2rem" }} block>
+              <Button color="dark" style={{ marginTop: '2rem' }} block>
                 Login
               </Button>
             </FormGroup>
