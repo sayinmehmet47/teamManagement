@@ -1,3 +1,4 @@
+const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs/dist/bcrypt');
 const Item = require('../models/Items');
 const User = require('../models/User');
@@ -81,12 +82,15 @@ const deletePlayer = (req, res) => {
 
 const register = async (req, res) => {
   const { name, email, password } = req.body;
+  const errors = validationResult(req);
 
-  if (!name || !email || !password) {
+  if (!errors.isEmpty()) {
     return res.status(400).json({
+      errors: errors.array(),
       msg: 'Please enter all fields',
     });
   }
+
   try {
     const user = await User.findOne({ email });
     if (user) throw Error('User already exists');
@@ -121,18 +125,27 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   const { email, password } = req.body;
-
-  if (!email || !password) {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
     return res.status(400).json({
+      errors: errors.array(),
       msg: 'Please enter all fields',
     });
   }
+
   try {
     const user = await User.findOne({ email });
     if (!user) throw Error('User does not exist');
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) throw Error('Invalid credentials');
-    const token = jwt.sign({ id: user._id }, '' + process.env.JWT_KEY);
+    // const token = jwt.sign({ id: user._id }, '' + process.env.JWT_KEY, {
+    //   expiresIn: '1h',
+    // });
+
+    const token = jwt.sign({ id: user._id }, '' + process.env.JWT_KEY, {
+      expiresIn: '1h',
+    });
+
     res.status(200).json({
       token,
       user: {

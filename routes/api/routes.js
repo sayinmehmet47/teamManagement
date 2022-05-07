@@ -1,3 +1,5 @@
+const { body } = require('express-validator');
+
 const {
   getItems,
   getItem,
@@ -13,18 +15,36 @@ const {
 
 const express = require('express');
 const auth = require('../../middleware/auth');
-
 const router = express.Router();
 
-router.route('/api/items').get(getItems);
-router.route('/api/items/:id').get(getItem);
-router.route('/api/items/createTeam').post(createTeam);
-router.route('/api/items/:id').delete(deleteTeam);
-router.route('/api/items/addPlayer/:id').post(addPlayer);
-router.route('/api/items/deletePlayer').post(auth, deletePlayer);
-router.route('/api/auth/register').post(register);
-router.route('/api/auth/login').post(login);
-router.route('/api/auth/user').get(getUser);
-router.route('/api/users').get(getUsers);
+router.get('/api/items', getItems);
+router.get('/api/item/:id', getItem);
+router.post('/api/items/createTeam', auth, createTeam);
+router.delete('/api/items/:id', auth, deleteTeam);
+router.post('/api/items/addPlayer/:id', addPlayer);
+router.post('/api/items/deletePlayer', auth, deletePlayer);
+router.post(
+  '/api/auth/register',
+  [
+    body('email').isEmail().withMessage('Please enter a valid email'),
+    body('password')
+      .isLength({ min: 6 })
+      .withMessage('Password must be at least 6 characters'),
+    body('name').notEmpty().withMessage('Please enter a name'),
+  ],
+  register
+);
+router.post(
+  '/api/auth/login',
+  [
+    body('email').isEmail().withMessage('Please enter a valid email'),
+    body('password')
+      .isLength({ min: 6 })
+      .withMessage('Password must be at least 6 characters'),
+  ],
+  login
+);
+router.get('/api/auth/user', auth, getUser);
+router.get('/api/auth/users', auth, getUsers);
 
 module.exports = router;
