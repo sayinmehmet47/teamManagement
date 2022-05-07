@@ -24,9 +24,8 @@ export const LoginModal = (props) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const err = useSelector((state) =>
-    state.err.msj.msg ? state.err.msj.msg : state.err.msj.msg
-  );
+  const { msj } = useSelector((state) => state.err);
+
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   const toggle = useCallback(() => {
@@ -70,7 +69,7 @@ export const LoginModal = (props) => {
         <ModalBody>
           <Form onSubmit={handleOnSubmit}>
             <FormGroup>
-              <Alert>{err}</Alert>
+              {msj.msg ? <Alert>{msj.msg}</Alert> : null}
               <Label for="email">Email</Label>
               <Input
                 type="email"
@@ -80,6 +79,15 @@ export const LoginModal = (props) => {
                 className="mb-3"
                 onChange={handleChangeEmail}
               />
+              {msj.errors
+                ? msj.errors.map((error) =>
+                    error.param === 'email' ? (
+                      <Alert key={error.value} color="danger">
+                        {error.msg}
+                      </Alert>
+                    ) : null
+                  )
+                : null}
 
               <Label for="password">Password</Label>
               <Input
@@ -90,6 +98,16 @@ export const LoginModal = (props) => {
                 className="mb-3"
                 onChange={handleChangePassword}
               />
+              {msj.errors
+                ? msj.errors.map((error) =>
+                    error.param === 'password' ? (
+                      <Alert key={error.value} color="danger">
+                        {error.msg}
+                      </Alert>
+                    ) : null
+                  )
+                : null}
+
               <Button color="dark" style={{ marginTop: '2rem' }} block>
                 Login
               </Button>

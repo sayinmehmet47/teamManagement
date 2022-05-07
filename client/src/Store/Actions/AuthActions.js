@@ -51,6 +51,7 @@ export const register =
         })
       )
       .catch((err) => {
+        console.log(err);
         dispatch(
           returnErrors(err.response.data, err.response.status, 'REGISTER_FAIL')
         );
@@ -81,7 +82,7 @@ export const login =
         })
       )
       .catch((err) => {
-        console.log(err);
+        console.log(err.response.data);
         dispatch(
           returnErrors(err.response.data, err.response.status, 'LOGIN_FAIL')
         );

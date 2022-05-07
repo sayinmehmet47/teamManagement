@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import React, { useCallback, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {
   Button,
   Modal,
@@ -12,23 +12,22 @@ import {
   Input,
   NavLink,
   Alert,
-} from "reactstrap";
-import { register } from "../Store/Actions/AuthActions";
-import { clearErrors } from "../Store/Actions/ErrActions";
+} from 'reactstrap';
+import { register } from '../Store/Actions/AuthActions';
+import { clearErrors } from '../Store/Actions/ErrActions';
 
 export const RegisterModal = (props) => {
   const { buttonLabel, className } = props;
-  const err = useSelector((state) =>
-    state.err.msj.msg ? state.err.msj.msg : state.err.msj.msg
-  );
+  const { msj } = useSelector((state) => state.err);
+  console.log(msj);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const dispatch = useDispatch();
 
   const [modal, setModal] = useState(false);
   const [unmountOnClose, setUnmountOnClose] = useState(true);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const toggle = useCallback(() => {
     setModal(!modal);
@@ -62,7 +61,7 @@ export const RegisterModal = (props) => {
     <div>
       <NavLink onClick={toggle} href="#">
         Register
-      </NavLink>{" "}
+      </NavLink>{' '}
       <Modal
         isOpen={modal}
         toggle={toggle}
@@ -73,8 +72,7 @@ export const RegisterModal = (props) => {
         <ModalBody>
           <Form onSubmit={handleOnSubmit}>
             <FormGroup>
-              {}
-              <Alert>{err}</Alert>
+              {msj.msg ? <Alert>{msj.msg}</Alert> : null}
 
               <Label for="name">Name</Label>
               <Input
@@ -85,6 +83,15 @@ export const RegisterModal = (props) => {
                 className="mb-3"
                 onChange={handleChangeName}
               />
+              {msj.errors
+                ? msj.errors.map((error) =>
+                    error.param === 'name' ? (
+                      <Alert key={error.value} color="danger">
+                        {error.msg}
+                      </Alert>
+                    ) : null
+                  )
+                : null}
 
               <Label for="email">Email</Label>
               <Input
@@ -95,6 +102,15 @@ export const RegisterModal = (props) => {
                 className="mb-3"
                 onChange={handleChangeEmail}
               />
+              {msj.errors
+                ? msj.errors.map((error) =>
+                    error.param === 'email' ? (
+                      <Alert key={error.value} color="danger">
+                        {error.msg}
+                      </Alert>
+                    ) : null
+                  )
+                : null}
 
               <Label for="password">Password</Label>
               <Input
@@ -105,7 +121,17 @@ export const RegisterModal = (props) => {
                 className="mb-3"
                 onChange={handleChangePassword}
               />
-              <Button color="dark" style={{ marginTop: "2rem" }} block>
+              {msj.errors
+                ? msj.errors.map((error) =>
+                    error.param === 'password' ? (
+                      <Alert key={error.value} color="danger">
+                        {error.msg}
+                      </Alert>
+                    ) : null
+                  )
+                : null}
+
+              <Button color="dark" style={{ marginTop: '2rem' }} block>
                 Register
               </Button>
             </FormGroup>
