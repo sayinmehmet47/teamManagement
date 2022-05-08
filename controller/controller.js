@@ -18,17 +18,21 @@ const getItem = (req, res) => {
   });
 };
 
-const createTeam = (req, res) => {
+const createTeam = async (req, res) => {
+  const userId = req.user.id;
   const newItem = new Item({
     name: req.body.name,
+    owner: userId,
   });
-  newItem.save(function (err, result) {
-    if (err) {
-      console.log(err);
-    } else {
-      res.json(result);
-    }
-  });
+
+  await newItem.save();
+  await User.findByIdAndUpdate(
+    userId,
+    { $push: { teams: newItem } },
+    { new: true }
+  );
+
+  res.json(newItem);
 };
 
 const deleteTeam = (req, res) => {
