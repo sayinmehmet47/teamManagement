@@ -1,4 +1,4 @@
-import { v1 as uuid } from "uuid";
+import { v1 as uuid } from 'uuid';
 import {
   ADD_ITEM,
   ADD_PLAYER,
@@ -6,7 +6,7 @@ import {
   DELETE_PLAYER,
   GET_ITEMS,
   ITEMS_LOADING,
-} from "../Actions/actions";
+} from '../Actions/actions';
 
 const initialState = {
   item: [],
@@ -47,9 +47,6 @@ export const itemReducer = (state = initialState, action) => {
       };
 
     case DELETE_PLAYER:
-      console.log(action.payload.teamName);
-      console.log(action.payload.playerName);
-      console.log("istek geliyor mu");
       const newItem = state.item.map((team) =>
         team.name === action.payload.teamName
           ? {
@@ -62,7 +59,6 @@ export const itemReducer = (state = initialState, action) => {
             }
           : team
       );
-      console.log(newItem);
       return {
         ...state,
         item: newItem,

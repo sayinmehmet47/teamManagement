@@ -6,6 +6,11 @@ const jwt = require('jsonwebtoken');
 
 const getItems = (req, res) => {
   Item.find()
+    .populate({
+      path: 'owner',
+      model: User,
+      select: 'name',
+    })
     .sort({ date: -1 })
     .then((items) => res.json(items));
 };
@@ -24,8 +29,13 @@ const createTeam = async (req, res) => {
     name: req.body.name,
     owner: userId,
   });
-
   await newItem.save();
+  await newItem.populate({
+    path: 'owner',
+    model: User,
+    select: 'name',
+  });
+
   await User.findByIdAndUpdate(
     userId,
     { $push: { teams: newItem } },
