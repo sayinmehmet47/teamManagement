@@ -1,10 +1,10 @@
-import React, { useMemo, useState } from "react";
-import { useTable, useSortBy, usePagination } from "react-table";
-import { useDispatch, useSelector } from "react-redux";
-import { deletePlayer } from "../Store/Actions/itemActions";
-import { Alert } from "reactstrap";
+import React, { useMemo, useState } from 'react';
+import { useTable, useSortBy, usePagination } from 'react-table';
+import { useDispatch, useSelector } from 'react-redux';
+import { deletePlayer } from '../Store/Actions/itemActions';
+import { Alert } from 'reactstrap';
 
-let container = [{ name: "", age: "" }];
+let container = [{ name: '', age: '' }];
 
 export const Table = ({ selected }) => {
   const id = useMemo(() => selected._id, [selected]);
@@ -14,15 +14,14 @@ export const Table = ({ selected }) => {
   const itemsFromRedux = useSelector((state) =>
     state.items.item.filter((e) => e._id === id)
   )[0];
-  let players = itemsFromRedux ? itemsFromRedux.players : "";
-  let teamName = itemsFromRedux ? itemsFromRedux.name : "";
+  let players = itemsFromRedux ? itemsFromRedux.players : '';
+  let teamName = itemsFromRedux ? itemsFromRedux.name : '';
   const [deleted, setDeleted] = useState(false);
 
   const handleDelete = (cell) => {
     const playerName = cell.row.original.name;
     const teamName = cell.column.parent.Header;
     const willDelete = { playerName, teamName };
-    // console.log(willDelete);
     dispatch(deletePlayer(willDelete));
     setDeleted(true);
     setTimeout(() => {
@@ -33,22 +32,22 @@ export const Table = ({ selected }) => {
   const columns = useMemo(
     () => [
       {
-        Header: teamName ? teamName : "TEAM NAME",
+        Header: teamName ? teamName : 'TEAM NAME',
 
         columns: [
           {
-            Header: "Name",
-            accessor: "name",
+            Header: 'Name',
+            accessor: 'name',
           },
           {
-            Header: "Age",
-            accessor: "age",
+            Header: 'Age',
+            accessor: 'age',
           },
           {
-            Header: "Delete",
+            Header: 'Delete',
 
-            accessor: "_id",
-            id: "_id",
+            accessor: '_id',
+            id: '_id',
             Cell: (row) =>
               players ? (
                 <button
@@ -58,7 +57,7 @@ export const Table = ({ selected }) => {
                   ❌
                 </button>
               ) : (
-                ""
+                ''
               ),
           },
         ],
@@ -72,12 +71,9 @@ export const Table = ({ selected }) => {
     getTableProps,
     getTableBodyProps,
     headerGroups,
-    nextPage,
-    previousPage,
+
     prepareRow,
     page,
-    canPreviousPage,
-    canNextPage,
   } = useTable(
     { columns, data: players ? players : container },
     useSortBy,
@@ -93,11 +89,10 @@ export const Table = ({ selected }) => {
 
       <table
         {...getTableProps()}
-        style={{ borderRadius: "15px" }}
+        style={{ borderRadius: '15px' }}
         className="table table-hover shadow"
       >
         <thead>
-          {/* <tr className="text-center">{teamName}</tr> */}
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
@@ -105,14 +100,14 @@ export const Table = ({ selected }) => {
                   {...column.getHeaderProps(column.getSortByToggleProps())}
                   className="border"
                   style={{
-                    background: "#f3f4f6",
-                    color: "black",
-                    paddingLeft: "12px",
+                    background: '#f3f4f6',
+                    color: 'black',
+                    paddingLeft: '12px',
                   }}
                 >
-                  {column.render("Header")}
+                  {column.render('Header')}
                   <span>
-                    {column.isSorted ? (column.isSortedDesc ? "🔽" : "🔼") : ""}
+                    {column.isSorted ? (column.isSortedDesc ? '🔽' : '🔼') : ''}
                   </span>
                 </th>
               ))}
@@ -130,11 +125,11 @@ export const Table = ({ selected }) => {
                       {...cell.getCellProps()}
                       className="border py-2 "
                       style={{
-                        textDecorationLine: "none",
-                        paddingLeft: "7px",
+                        textDecorationLine: 'none',
+                        paddingLeft: '7px',
                       }}
                     >
-                      {cell.render("Cell")}
+                      {cell.render('Cell')}
                     </td>
                   );
                 })}
@@ -143,22 +138,6 @@ export const Table = ({ selected }) => {
           })}
         </tbody>
       </table>
-      {/* <div className="mt-2 d-flex justify-content-center">
-        <button
-          className="btn btn-outline-dark btn-sm"
-          onClick={() => previousPage()}
-          disabled={!canPreviousPage}
-        >
-          ⬅ Previous
-        </button>
-        <button
-          className="btn btn-outline-dark btn-sm"
-          onClick={() => nextPage()}
-          disabled={!canNextPage}
-        >
-          NextPage ➡
-        </button>
-      </div> */}
     </div>
   );
 };

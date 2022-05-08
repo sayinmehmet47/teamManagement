@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { ListGroup, ListGroupItem, Button, Alert } from "reactstrap";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { useDispatch, useSelector } from "react-redux";
-import { addItem, deleteItem, getItems } from "../Store/Actions/itemActions";
-import { AddPlayer } from "./AddPlayer";
-import { ItemModal } from "./ItemModal";
-import { css } from "@emotion/react";
-import BeatLoader from "react-spinners/BeatLoader";
-import { Table } from "./Table";
+import React, { useEffect, useState } from 'react';
+import { ListGroup, ListGroupItem, Button, Alert } from 'reactstrap';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteItem, getItems } from '../Store/Actions/itemActions';
+import { AddPlayer } from './AddPlayer';
+import { ItemModal } from './ItemModal';
+import { css } from '@emotion/react';
+import BeatLoader from 'react-spinners/BeatLoader';
+import { Table } from './Table';
 const override = css`
   display: flex;
   justify-content: center;
@@ -17,7 +17,7 @@ export const TeamList = () => {
   const itemsFromRedux = useSelector((state) => state.items.item);
   const isLoading = useSelector((state) => state.items.loading);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const [selectedItem, setSelectedItem] = useState("");
+  const [selectedItem, setSelectedItem] = useState('');
   const [deleted, setDeleted] = useState(false);
   const dispatch = useDispatch();
 
@@ -61,12 +61,7 @@ export const TeamList = () => {
                         <div className="text-secondary fs-4"> {item.name}</div>
                         <hr />
                         <div className="d-flex justify-content-center align-items-center ">
-                          {isAuthenticated ? (
-                            // <Button className="me-3 d-flex flex-end">
-                            //   Add Players ➕
-                            // </Button>
-                            <AddPlayer id={item._id} />
-                          ) : null}
+                          {isAuthenticated ? <AddPlayer id={item._id} /> : null}
                           {isAuthenticated ? (
                             <Button
                               onClick={() => deleteItems(item._id)}
@@ -77,6 +72,10 @@ export const TeamList = () => {
                           ) : null}
                         </div>
                       </div>
+                      <p className="">
+                        Owner:
+                        <span className="text-danger"> {item.owner.name}</span>
+                      </p>
                     </ListGroupItem>
                   </CSSTransition>
                 );
