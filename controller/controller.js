@@ -29,7 +29,14 @@ const createTeam = async (req, res) => {
     name: req.body.name,
     owner: userId,
   });
-  await newItem.save();
+  await newItem.save((err, data) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).json({
+        message: 'Server Error',
+      });
+    }
+  });
   await newItem.populate({
     path: 'owner',
     model: User,
