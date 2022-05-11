@@ -42,12 +42,12 @@ export const deleteItem = (id) => (dispatch, getState) => {
   console.log(id);
   axios
     .delete(`/api/items/${id}`, tokenConfig(getState))
-    .then((res) =>
-      dispatch({
-        type: DELETE_ITEM,
-        payload: id,
-      })
-    )
+    // .then((res) =>
+    //   dispatch({
+    //     type: DELETE_ITEM,
+    //     payload: id,
+    //   })
+    // )
     .catch((err) =>
       dispatch(
         returnErrors(err.response.data, err.response.status, 'GET_ERRORS')

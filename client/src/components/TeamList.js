@@ -8,6 +8,7 @@ import { ItemModal } from './ItemModal';
 import { css } from '@emotion/react';
 import BeatLoader from 'react-spinners/BeatLoader';
 import { Table } from './Table';
+import openSocket from 'socket.io-client';
 const override = css`
   display: flex;
   justify-content: center;
@@ -23,6 +24,15 @@ export const TeamList = () => {
 
   useEffect(() => {
     dispatch(getItems());
+    const socket = openSocket('http://localhost:5000');
+    socket.on('postsChannel', (data) => {
+      if (data.action === 'deletingTeam') {
+        dispatch({ type: 'DELETE_ITEM', payload: data.teamId });
+        setTimeout(() => {
+          setDeleted(false);
+        }, 2000);
+      }
+    });
   }, []);
 
   const deleteItems = (id) => {
