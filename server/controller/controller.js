@@ -66,6 +66,10 @@ const deleteTeam = (req, res) => {
       res.json(err);
     } else {
       res.json(data);
+      io.getIO().emit('postsChannel', {
+        action: 'deletingTeam',
+        teamId: id,
+      });
     }
   });
 };
