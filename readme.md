@@ -11,14 +11,15 @@
 - [x] Bootsrap 5
 - [x] NodeJS
 - [x] MongoDB
+- [x] Socketio
+
+
 
 For table
 
 - [react-table](https://react-table.tanstack.com/) used for handle checked rows on table
 
-For Charts
 
-- [react-charts](https://github.com/reactchartjs/react-chartjs-2) used for create doughnut chart
 
 For Cool transition
 
