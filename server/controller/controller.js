@@ -1,16 +1,16 @@
-const { validationResult } = require("express-validator");
-const bcrypt = require("bcryptjs/dist/bcrypt");
-const Item = require("../models/Items");
-const User = require("../models/User");
-const jwt = require("jsonwebtoken");
-const io = require("../socket/socket");
+const { validationResult } = require('express-validator');
+const bcrypt = require('bcryptjs/dist/bcrypt');
+const Item = require('../models/Items');
+const User = require('../models/User');
+const jwt = require('jsonwebtoken');
+const io = require('../socket/socket');
 
 const getItems = (req, res) => {
   Item.find()
     .populate({
-      path: "owner",
+      path: 'owner',
       model: User,
-      select: "name",
+      select: 'name',
     })
     .sort({ date: -1 })
     .then((items) => res.json(items));
@@ -34,15 +34,15 @@ const createTeam = async (req, res) => {
     if (err) {
       console.log(err);
       return res.status(500).json({
-        message: "Server Error",
+        message: 'Server Error',
       });
     }
   });
 
   await newItem.populate({
-    path: "owner",
+    path: 'owner',
     model: User,
-    select: "name",
+    select: 'name',
   });
 
   await User.findByIdAndUpdate(
@@ -51,8 +51,8 @@ const createTeam = async (req, res) => {
     { new: true }
   );
   console.log(newItem);
-  io.getIO().emit("postsChannel", {
-    action: "creatingTeam",
+  io.getIO().emit('postsChannel', {
+    action: 'creatingTeam',
     // team: { ...newItem._doc, _id: newItem._id.toString() },
     team: newItem,
   });
@@ -88,7 +88,7 @@ const addPlayer = (req, res) => {
 const deletePlayer = (req, res) => {
   const playerName = req.body.playerName; //'ahmet '
   const teamName = req.body.teamName; //'Team A'
-  res.json("dfas");
+  res.json('dfas');
   Item.updateOne(
     { name: teamName },
     {
@@ -102,7 +102,7 @@ const deletePlayer = (req, res) => {
       if (err) {
         console.log(err);
       } else {
-        console.log("Removed User : ", docs);
+        console.log('Removed User : ', docs);
       }
     }
   );
@@ -115,18 +115,18 @@ const register = async (req, res) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({
       errors: errors.array(),
-      msg: "Please enter all fields",
+      msg: 'Please enter all fields',
     });
   }
 
   try {
     const user = await User.findOne({ email });
-    if (user) throw Error("User already exists");
+    if (user) throw Error('User already exists');
     const salt = await bcrypt.genSalt(10);
-    if (!salt) throw Error("Something went wrong with bcrypt");
+    if (!salt) throw Error('Something went wrong with bcrypt');
 
     const hash = await bcrypt.hash(password, salt);
-    if (!hash) throw Error("Something went wrong hashing the password");
+    if (!hash) throw Error('Something went wrong hashing the password');
 
     const newUser = new User({
       name,
@@ -135,9 +135,9 @@ const register = async (req, res) => {
     });
 
     const savedUser = await newUser.save();
-    if (!savedUser) throw Error("Something went wrong saving the user");
+    if (!savedUser) throw Error('Something went wrong saving the user');
 
-    const token = jwt.sign({ id: savedUser._id }, "" + process.env.JWT_KEY);
+    const token = jwt.sign({ id: savedUser._id }, '' + process.env.JWT_KEY);
     res.status(200).json({
       token,
       user: {
@@ -157,21 +157,21 @@ const login = async (req, res) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({
       errors: errors.array(),
-      msg: "Please enter all fields",
+      msg: 'Please enter all fields',
     });
   }
 
   try {
     const user = await User.findOne({ email });
-    if (!user) throw Error("User does not exist");
+    if (!user) throw Error('User does not exist');
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) throw Error("Invalid credentials");
+    if (!isMatch) throw Error('Invalid credentials');
     // const token = jwt.sign({ id: user._id }, '' + process.env.JWT_KEY, {
     //   expiresIn: '1h',
     // });
 
-    const token = jwt.sign({ id: user._id }, "" + process.env.JWT_KEY, {
-      expiresIn: "1h",
+    const token = jwt.sign({ id: user._id }, '' + process.env.JWT_KEY, {
+      expiresIn: '1h',
     });
 
     res.status(200).json({
@@ -189,8 +189,8 @@ const login = async (req, res) => {
 
 const getUser = async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select("-password");
-    if (!user) throw Error("User does not exist");
+    const user = await User.findById(req.user.id).select('-password');
+    if (!user) throw Error('User does not exist');
     res.json(user);
   } catch (e) {
     res.status(400).json({ msg: e.message });
@@ -200,7 +200,7 @@ const getUser = async (req, res) => {
 const getUsers = async (req, res) => {
   try {
     const users = await User.find();
-    if (!users) throw Error("No users exist");
+    if (!users) throw Error('No users exist');
     res.json(users);
   } catch (e) {
     res.status(400).json({ msg: e.message });

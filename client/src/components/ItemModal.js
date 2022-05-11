@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Button,
@@ -10,6 +10,8 @@ import {
   Input,
 } from 'reactstrap';
 import { addItems } from '../Store/Actions/itemActions';
+import openSocket from 'socket.io-client';
+import { ADD_ITEM } from '../Store/Actions/actions';
 
 export const ItemModal = (props) => {
   const { buttonLabel, className } = props;
@@ -24,8 +26,19 @@ export const ItemModal = (props) => {
     setModal(!modal);
   };
 
+  useEffect(() => {
+    const socket = openSocket('http://localhost:5000');
+    socket.on('postsChannel', (data) => {
+      if (data.action === 'creatingTeam') {
+        console.log('fdfs');
+        dispatch({ type: ADD_ITEM, payload: data.team });
+      }
+    });
+  }, []);
+
   const add = () => {
     setModal(!modal);
+
     if (input) {
       dispatch(addItems({ name: input, date: Date.now() }));
     }

@@ -1,5 +1,5 @@
-import axios from "axios";
-import { useCallback } from "react";
+import axios from 'axios';
+import { useCallback } from 'react';
 import {
   ADD_ITEM,
   ADD_PLAYER,
@@ -8,13 +8,13 @@ import {
   GET_ERRORS,
   GET_ITEMS,
   ITEMS_LOADING,
-} from "./actions";
-import { tokenConfig } from "./AuthActions";
-import { returnErrors } from "./ErrActions";
+} from './actions';
+import { tokenConfig } from './AuthActions';
+import { returnErrors } from './ErrActions';
 
 export const getItems = () => (dispatch) => {
   dispatch(setItemsLoading());
-  axios.get("/api/items").then((res) =>
+  axios.get('/api/items').then((res) =>
     dispatch({
       type: GET_ITEMS,
       payload: res.data,
@@ -24,17 +24,16 @@ export const getItems = () => (dispatch) => {
 
 export const addItems = (input) => (dispatch, getState) => {
   axios
-    .post("/api/items/createTeam", input, tokenConfig(getState))
-    .then(
-      (res) => console.log(res)
-      // dispatch({
-      //   type: ADD_ITEM,
-      //   payload: res.data,
-      // })
-    )
+    .post('/api/items/createTeam', input, tokenConfig(getState))
+    // .then((res) =>
+    //   dispatch({
+    //     type: ADD_ITEM,
+    //     payload: res.data,
+    //   })
+    // )
     .catch((err) =>
       dispatch(
-        returnErrors(err.response.data, err.response.status, "GET_ERRORS")
+        returnErrors(err.response.data, err.response.status, 'GET_ERRORS')
       )
     );
 };
@@ -51,7 +50,7 @@ export const deleteItem = (id) => (dispatch, getState) => {
     )
     .catch((err) =>
       dispatch(
-        returnErrors(err.response.data, err.response.status, "GET_ERRORS")
+        returnErrors(err.response.data, err.response.status, 'GET_ERRORS')
       )
     );
 };
@@ -67,7 +66,7 @@ export const addPlayer = (id, player) => (dispatch, getState) => {
     )
     .catch((err) =>
       dispatch(
-        returnErrors(err.response.data, err.response.status, "GET_ERRORS")
+        returnErrors(err.response.data, err.response.status, 'GET_ERRORS')
       )
     );
 };
@@ -85,7 +84,7 @@ export const deletePlayer = (willDelete) => (dispatch, getState) => {
     )
     .catch((err) =>
       dispatch(
-        returnErrors(err.response.data, err.response.status, "GET_ERRORS")
+        returnErrors(err.response.data, err.response.status, 'GET_ERRORS')
       )
     );
 };
