@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const app = express();
 const helmet = require("helmet");
+const compression = require("compression");
 
 const routes = require("./routes/api/routes");
 
@@ -16,7 +17,9 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+// Setting response recure and compress assets
 app.use(helmet());
+app.use(compression());
 
 app.use(routes);
 
