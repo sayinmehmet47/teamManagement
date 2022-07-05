@@ -28,9 +28,6 @@ export const TeamList = () => {
     socket.on('postsChannel', (data) => {
       if (data.action === 'deletingTeam') {
         dispatch({ type: 'DELETE_ITEM', payload: data.teamId });
-        setTimeout(() => {
-          setDeleted(false);
-        }, 2000);
       }
     });
   }, []);
@@ -40,7 +37,7 @@ export const TeamList = () => {
     setDeleted(true);
     setTimeout(() => {
       setDeleted(false);
-    }, 2000);
+    }, 1000);
   };
 
   const handleSelectedItem = (item) => {
