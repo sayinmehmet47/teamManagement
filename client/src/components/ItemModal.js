@@ -27,7 +27,7 @@ export const ItemModal = (props) => {
   };
 
   useEffect(() => {
-    const socket = openSocket('http://localhost:5000');
+    const socket = openSocket('https://team-management12.herokuapp.com/');
     socket.on('postsChannel', (data) => {
       if (data.action === 'creatingTeam') {
         console.log('fdfs');

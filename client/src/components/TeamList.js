@@ -24,7 +24,7 @@ export const TeamList = () => {
 
   useEffect(() => {
     dispatch(getItems());
-    const socket = openSocket('http://localhost:5000');
+    const socket = openSocket('https://team-management12.herokuapp.com/');
     socket.on('postsChannel', (data) => {
       if (data.action === 'deletingTeam') {
         dispatch({ type: 'DELETE_ITEM', payload: data.teamId });
