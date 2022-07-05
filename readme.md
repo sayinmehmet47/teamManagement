@@ -24,3 +24,19 @@ For table
 For Cool transition .
 
 - [react-transition-group](https://reactcommunity.org/react-transition-group/) used when adding new item
+
+
+`Installation`
+
+```js
+cd client
+npm install
+npm start
+```
+```js
+cd server
+npm install
+npm run dev
+```
+`In client folder change link of https://team-management12.herokuapp.com/ with 'http://localhost:5000'`
+
