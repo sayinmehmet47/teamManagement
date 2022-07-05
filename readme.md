@@ -21,6 +21,6 @@ For table
 
 
 
-For Cool transition
+For Cool transition .
 
 - [react-transition-group](https://reactcommunity.org/react-transition-group/) used when adding new item
