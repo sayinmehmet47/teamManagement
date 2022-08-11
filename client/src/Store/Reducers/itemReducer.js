@@ -31,19 +31,16 @@ export const itemReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: true,
-        // lastUpdated: Date.now(),
       };
     case ADD_PLAYER:
       return {
         ...state,
-        item: state.item.map((e) =>
-          e._id === action.payload.id
-            ? {
-                ...e,
-                players: [...e.players, action.payload.player],
-              }
-            : e
-        ),
+        item: [...state.item].map((item) => {
+          if (item._id === action.payload.id) {
+            item.players.push(action.payload.player);
+          }
+          return item;
+        }),
       };
 
     case DELETE_PLAYER:

@@ -2,6 +2,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const app = express();
+
+//using redis.createClient() method
+
 const helmet = require('helmet');
 const compression = require('compression');
 const path = require('path');

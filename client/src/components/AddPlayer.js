@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
 import {
   Button,
   Modal,
@@ -31,11 +30,10 @@ export const AddPlayer = (props) => {
   };
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    const socket = socketIOClient.connect('http://localhost:5000');
+    const socket = socketIOClient.connect(process.env.REACT_APP_URL);
     socket.on('FromAPI', (data) => {
       setResponse(data);
     });
-    console.log(response);
 
     // Create user object
     const player = {
@@ -44,8 +42,6 @@ export const AddPlayer = (props) => {
     };
 
     dispatch(addPlayer(id, player));
-    // Attempt to login
-
     setModal(!modal);
   };
 

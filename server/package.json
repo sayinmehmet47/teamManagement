@@ -22,6 +22,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.5",
     "nodemon": "^2.0.12",
+    "redis": "^4.2.0",
     "socket.io": "^4.5.0"
   }
 }

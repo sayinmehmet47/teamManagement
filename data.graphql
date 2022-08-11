@@ -1,0 +1,15 @@
+type Image {
+  src: String
+  alt: String
+}
+
+type Products {
+  name: String
+  category: String
+  price: Float
+  currency: String
+  bestseller: Boolean
+  featured: Boolean
+  details: String
+  image: Image
+}

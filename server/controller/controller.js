@@ -4,6 +4,7 @@ const Item = require('../models/Items');
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const io = require('../socket/socket');
+const { client } = require('../redis/redis');
 
 const getItems = (req, res) => {
   Item.find()
@@ -13,7 +14,11 @@ const getItems = (req, res) => {
       select: 'name',
     })
     .sort({ date: -1 })
-    .then((items) => res.json(items));
+    .then((items) => {
+      // client.setex(search, 600, JSON.stringify(data.data));
+
+      res.json(items);
+    });
 };
 
 const getItem = (req, res) => {
@@ -79,6 +84,7 @@ const addPlayer = (req, res) => {
   Item.findByIdAndUpdate(
     id,
     { $push: { players: req.body } },
+    { new: true },
     function (err, docs) {
       if (err) {
         res.json(err);
@@ -170,9 +176,6 @@ const login = async (req, res) => {
     if (!user) throw Error('User does not exist');
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) throw Error('Invalid credentials');
-    // const token = jwt.sign({ id: user._id }, '' + process.env.JWT_KEY, {
-    //   expiresIn: '1h',
-    // });
 
     const token = jwt.sign({ id: user._id }, '' + process.env.JWT_KEY, {
       expiresIn: '1h',

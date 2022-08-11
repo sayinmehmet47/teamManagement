@@ -14,7 +14,7 @@ import openSocket from 'socket.io-client';
 import { ADD_ITEM } from '../Store/Actions/actions';
 
 export const ItemModal = (props) => {
-  const { buttonLabel, className } = props;
+  const { className } = props;
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
@@ -27,10 +27,9 @@ export const ItemModal = (props) => {
   };
 
   useEffect(() => {
-    const socket = openSocket('https://team-management12.herokuapp.com/');
+    const socket = openSocket(process.env.REACT_APP_URL);
     socket.on('postsChannel', (data) => {
       if (data.action === 'creatingTeam') {
-        console.log('fdfs');
         dispatch({ type: ADD_ITEM, payload: data.team });
       }
     });
@@ -59,9 +58,6 @@ export const ItemModal = (props) => {
         ) : (
           <h4>Please login to manage items</h4>
         )}
-        {/* <Button className="mb-3" color="danger" onClick={toggle}>
-          Add new Person
-        </Button> */}
       </Form>
       <Modal
         isOpen={modal}

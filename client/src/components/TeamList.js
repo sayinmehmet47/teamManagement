@@ -7,8 +7,8 @@ import { AddPlayer } from './AddPlayer';
 import { ItemModal } from './ItemModal';
 import { css } from '@emotion/react';
 import BeatLoader from 'react-spinners/BeatLoader';
-import { Table } from './Table';
 import openSocket from 'socket.io-client';
+import TableComponent from './Table';
 const override = css`
   display: flex;
   justify-content: center;
@@ -24,7 +24,7 @@ export const TeamList = () => {
 
   useEffect(() => {
     dispatch(getItems());
-    const socket = openSocket('https://team-management12.herokuapp.com/');
+    const socket = openSocket(process.env.REACT_APP_URL);
     socket.on('postsChannel', (data) => {
       if (data.action === 'deletingTeam') {
         dispatch({ type: 'DELETE_ITEM', payload: data.teamId });
@@ -94,7 +94,9 @@ export const TeamList = () => {
             <BeatLoader css={override} size={20} />
           </div>
         )}
-        <div className="col-md-4">{<Table selected={selectedItem} />}</div>
+        <div className="col-md-4">
+          {<TableComponent selected={selectedItem} />}
+        </div>
       </div>
     </div>
   );

@@ -1,0 +1,91 @@
+{
+    "products": [
+        {
+            "name": "Red Bench",
+            "category": "people",
+            "price": 3.89,
+            "currency": "USD",
+            "image": {
+                "src": "https://images.pexels.com/photos/130850/pexels-photo-130850.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+                "alt": ""
+            },
+            "bestseller": true,
+            "featured": false,
+            "details": null
+        },
+        {
+            "name": "Egg Balloon",
+            "category": "food",
+            "price": 93.89,
+            "currency": "USD",
+            "image": {
+                "src": "https://images.pexels.com/photos/6646355/pexels-photo-6646355.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+                "alt": ""
+            },
+            "bestseller": false,
+            "featured": false,
+            "details": null
+        },
+        {
+            "name": "Man",
+            "category": "people",
+            "price": 100,
+            "currency": "USD",
+            "image": {
+                "src": "https://images.pexels.com/photos/1172207/pexels-photo-1172207.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+                "alt": ""
+            },
+            "bestseller": false,
+            "featured": false,
+            "details": null
+        },
+        {
+            "name": "Architecture",
+            "category": "landmarks",
+            "price": 101,
+            "currency": "USD",
+            "dimmentions": {
+                "width": 1020,
+                "height": 1020
+            },
+            "image": "https://images.pexels.com/photos/911758/pexels-photo-911758.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+            "bestseller": false,
+            "featured": false,
+            "details": null
+        },
+        {
+            "name": "Samurai King Restling",
+            "category": "landmarks",
+            "price": 101,
+            "currency": "USD",
+            "image": {
+                "src": "https://images.pexels.com/photos/260024/pexels-photo-260024.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+                "alt": ""
+            },
+            "bestseller": false,
+            "featured": true,
+            "details": {
+                "dimmentions": {
+                    "width": 1020,
+                    "height": 1020
+                }
+            },
+            "size": 15000,
+            "description": "So how did the classical Latin become so incoherent? According to McClintock, a 15th century typesetter likely",
+            "recommendations": [
+                {
+                    "src": "",
+                    "alt": ""
+                },
+                {
+                    "src": "",
+                    "alt": ""
+                },
+                {
+                    "src": "",
+                    "alt": ""
+                }
+            ]
+        }
+    ]
+}

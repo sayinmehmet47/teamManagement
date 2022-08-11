@@ -58,22 +58,21 @@ export const deleteItem = (id) => (dispatch, getState) => {
 export const addPlayer = (id, player) => (dispatch, getState) => {
   axios
     .post(`/api/items/addPlayer/${id}`, player, tokenConfig(getState))
-    .then((res) =>
+    .then((res) => {
+      const newPlayer = res.data.players.slice(-1)[0];
       dispatch({
         type: ADD_PLAYER,
-        payload: { id, player },
-      })
-    )
-    .catch((err) =>
-      dispatch(
-        returnErrors(err.response.data, err.response.status, 'GET_ERRORS')
-      )
-    );
+        payload: { id, player: newPlayer },
+      });
+    });
+  // .catch((err) =>
+  //   dispatch(
+  //     returnErrors(err.response.data, err.response.status, 'GET_ERRORS')
+  //   )
+  // );
 };
 
 export const deletePlayer = (willDelete) => (dispatch, getState) => {
-  console.log(willDelete);
-
   axios
     .post(`/api/items/deletePlayer/`, willDelete, tokenConfig(getState))
     .then((res) =>

@@ -15,6 +15,7 @@ const {
 
 const express = require('express');
 const auth = require('../../middleware/auth');
+const { checkCache } = require('../../redis/redis');
 const router = express.Router();
 
 router.get('/api/items', getItems);
