@@ -44,6 +44,7 @@ export const itemReducer = (state = initialState, action) => {
       };
 
     case DELETE_PLAYER:
+      console.log(action.payload);
       const newItem = state.item.map((team) =>
         team.name === action.payload.teamName
           ? {
@@ -56,6 +57,8 @@ export const itemReducer = (state = initialState, action) => {
             }
           : team
       );
+      console.log(newItem);
+
       return {
         ...state,
         item: newItem,

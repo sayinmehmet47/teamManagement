@@ -4,7 +4,13 @@ const Item = require('../models/Items');
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const io = require('../socket/socket');
-const { client } = require('../redis/redis');
+const redis = require('redis');
+
+const client = redis.createClient(6379);
+
+client.on('error', (error) => {
+  console.error(error);
+});
 
 const getItems = (req, res) => {
   Item.find()
@@ -98,7 +104,6 @@ const addPlayer = (req, res) => {
 const deletePlayer = (req, res) => {
   const playerName = req.body.playerName; //'ahmet '
   const teamName = req.body.teamName; //'Team A'
-  res.json('dfas');
   Item.updateOne(
     { name: teamName },
     {
@@ -110,9 +115,9 @@ const deletePlayer = (req, res) => {
     },
     function (err, docs) {
       if (err) {
-        console.log(err);
+        res.json(err);
       } else {
-        console.log('Removed User : ', docs);
+        res.json(docs);
       }
     }
   );

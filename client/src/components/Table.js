@@ -1,9 +1,17 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Table } from 'reactstrap';
+import { deleteItem, deletePlayer } from '../Store/Actions/itemActions';
 
-export default function TableComponent({ selected }) {
-  const players = selected?.players;
-  const name = selected?.name;
+export default function TableComponent({ id }) {
+  const dispatch = useDispatch();
+  const { players, name } = useSelector(
+    (state) => state.items.item.find((item) => item._id === id) || {}
+  );
+
+  const handleDelete = (playerName) => {
+    dispatch(deletePlayer({ playerName, teamName: name }));
+  };
 
   return (
     <div>
@@ -26,9 +34,7 @@ export default function TableComponent({ selected }) {
               <td>
                 <button
                   className="btn btn-danger"
-                  onClick={() => {
-                    console.log('delete');
-                  }}
+                  onClick={() => handleDelete(player.name)}
                 >
                   Delete
                 </button>

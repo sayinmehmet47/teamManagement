@@ -17,9 +17,8 @@ import { register } from '../Store/Actions/AuthActions';
 import { clearErrors } from '../Store/Actions/ErrActions';
 
 export const RegisterModal = (props) => {
-  const { buttonLabel, className } = props;
+  const { className } = props;
   const { msj } = useSelector((state) => state.err);
-  console.log(msj);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const dispatch = useDispatch();
 

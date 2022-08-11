@@ -40,8 +40,8 @@ export const TeamList = () => {
     }, 1000);
   };
 
-  const handleSelectedItem = (item) => {
-    setSelectedItem(item);
+  const handleSelectedItem = (id) => {
+    setSelectedItem(id);
   };
 
   return (
@@ -58,7 +58,7 @@ export const TeamList = () => {
                     key={index}
                     timeout={500}
                     classNames="fade"
-                    onClick={() => handleSelectedItem(item)}
+                    onClick={() => handleSelectedItem(item._id)}
                   >
                     <ListGroupItem
                       className="d-flex justify-content-between shadow mb-2 rounded"
@@ -94,9 +94,7 @@ export const TeamList = () => {
             <BeatLoader css={override} size={20} />
           </div>
         )}
-        <div className="col-md-4">
-          {<TableComponent selected={selectedItem} />}
-        </div>
+        <div className="col-md-4">{<TableComponent id={selectedItem} />}</div>
       </div>
     </div>
   );

@@ -4,6 +4,13 @@ const cors = require('cors');
 const app = express();
 
 //using redis.createClient() method
+const redis = require('redis');
+
+const client = redis.createClient(6379);
+
+client.on('error', (error) => {
+  console.error(error);
+});
 
 const helmet = require('helmet');
 const compression = require('compression');
