@@ -1,20 +1,28 @@
 import React from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Table } from 'reactstrap';
+import { Alert, Table } from 'reactstrap';
 import { deleteItem, deletePlayer } from '../Store/Actions/itemActions';
 
 export default function TableComponent({ id }) {
   const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state) => state.auth.isAuthenticated);
+  const [alert, setAlert] = useState(false);
   const { players, name } = useSelector(
     (state) => state.items.item.find((item) => item._id === id) || {}
   );
 
   const handleDelete = (playerName) => {
     dispatch(deletePlayer({ playerName, teamName: name }));
+    !isLoggedIn ? setAlert('Please log in') : setAlert('');
+    setTimeout(() => {
+      setAlert('');
+    }, 2000);
   };
 
   return (
     <div>
+      {alert && <Alert color="danger">Please log in to delete player</Alert>}
       <h3>{name}</h3>
       <Table bordered>
         <thead>
